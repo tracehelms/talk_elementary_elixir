@@ -383,7 +383,12 @@ $ elixir --erl "+P 1000000"  -r processes.exs -e "Processes.run(1_000_000)"
 
         <section>
           <h2>Distribution Example</h2>
-          <p>TODO: Connect to a coworkers computer and send something to process on it</p>
+          <pre><code>
+$ iex --name node_number@ip_address --cookie monster
+iex> c("code_filename.exs")
+iex> Node.connect(:"nodetwo@10.0.1.24")
+iex> Node.spawn(:"nodetwo@10.0.1.24", Fibonacci, :spawn_fib, [4])
+          </code></pre>
         </section>
 
         <section>
