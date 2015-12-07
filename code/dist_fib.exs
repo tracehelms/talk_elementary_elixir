@@ -19,8 +19,6 @@ defmodule Fibonacci do
     receive do
       result ->
         IO.puts "The result is #{result}"
-      after 10_000 ->
-        IO.puts "Nothing to see here"
     end
   end
 
