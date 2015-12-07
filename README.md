@@ -1,31 +1,10 @@
 # Elementary Elixir
+A talk about what Elixir is capable of.
 
-## Components
-### Talk
-#### Outline
-- Intro
-- What is Elixir?
-- Why do I care?
-- What functional means
--- Example of assigning variables
--- Example of immutability
-
-- The language
--- Pattern matching
--- Immutability
--- Pipe char
-
-- Recursion
--- Lists: [head | tail]
--- Example of recursion
-
-- Processes
--- Example of spinning up processes
-
-- "Micro" Services
--- Applications
-
-- Distribution / Nodes
--- Example of nodes & distibuted programming
-
-- Installing Elixir
+## Running the code
+- Clone this repository
+- Install Elixir `brew install elixir`
+- Switch into the `/code` directory
+- Load files into `iex` by specifying the filename afterwards, e.g. `$ iex my_list.exs`
+- Then call the functions via Module.function(args) syntax, e.g. `iex> MyList.square([1, 2, 3, 4])`
+- Press `Ctrl + C` twice to exit `iex`.
