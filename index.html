@@ -287,7 +287,7 @@ end
           <h2>Enum Library</h2>
           <ul>
             <li>You don't need to do a ton of recursion, that's just how it works under the hood.</li>
-            <li>All of your favorite functions for enumerables</li>
+            <li>Elixir has all of your favorite functions for enumerables.</li>
             <li>map, uniq, empty?, count, max, sort, etc...</li>
           </ul>
         </section>
@@ -371,7 +371,6 @@ $ elixir --erl "+P 1000000"  -r processes.exs -e "Processes.run(1_000_000)"
           <h2>Processes Example</h2>
           <p>A million processes...in under 8 seconds...on my MacBook.</p>
           <pre><code>
-$ elixir --erl "+P 1000000"  -r processes.exs -e "Processes.run(1_000_000)"
 {7857020, "Result is 1000000"}
           </code></pre>
 
@@ -416,6 +415,7 @@ iex> :observer.start
           <ul>
             <li>Each computer pulls down the code I'm going to run.</li>
             <li>Each computer starts an iex session with a node name and cookie.</li>
+            <li>Each computer loads the code into the session.</li>
             <li>I'll connect to the machine over WiFi.</li>
             <li>I'll call a function that spawns a process on the remote machine.</li>
             <li>That function will listen for the answer and display it when it's done.</li>
@@ -428,11 +428,11 @@ iex> :observer.start
           <pre><code>
 $ ifconfig # get ip address from en0
 ...
-$ iex --name node_number@your_ip_address --cookie monster
+$ iex --name node_name@your_ip_address --cookie cookie_name
 iex> c("dist_fib.exs")
 [Fibonacci]
           </code></pre>
-          <small>This code is runnable in the <code>/code</code> directory.</small>
+          <small>Fire up Activity Monitor to see your CPU working.</small>
         </section>
 
         <section>
@@ -444,12 +444,18 @@ true
 iex> Fibonacci.spawn_fib(:"nodetwo@10.0.1.24", 5)
 The result is 8
 :ok
+iex> Fibonacci.spawn_fib(:"nodetwo@10.0.1.24", 45)
+...
           </code></pre>
-          <small>This code is runnable in the <code>/code</code> directory.</small>
         </section>
 
         <section>
-          <h2>Installing</h2>
+          <h2>Distribution Code</h2>
+          <p>This code is available in the repo to review.</p>
+        </section>
+
+        <section>
+          <h2>Installing Elixir</h2>
           <pre><code>
 $ brew install elixir
           </code></pre>
