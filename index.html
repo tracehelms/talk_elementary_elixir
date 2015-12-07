@@ -239,7 +239,7 @@ end
           <h2>Let's start with Lists</h2>
           <ul>
             <li>Every list is a linked list</li>
-            <li>Every list can be split into the first element and the rest of the list</p>
+            <li>Every list can be split into the first element and the rest of the list</li>
             <li>The first element is the head</li>
             <li>The rest of the list is the tail</li>
             <li>The last element of a list is always an empty list</li>
@@ -284,32 +284,101 @@ end
         </section>
 
         <section>
+          <h1>Concurrency</h1>
+        </section>
+
+        <section>
           <h2>Processes</h2>
-          <p>TODO</p>
+          <ul>
+            <li>Lots of lightweight processes</li>
+            <li>Used for concurrency</li>
+            <li>Each process has its own memory</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Processes</h2>
+          <p>Let's prove that they're lightweight.</p>
+          <p>Let's fire off a million processes.</p>
         </section>
 
         <section>
           <h2>Processes Example</h2>
-          <p>TODO: spin up a million processes</p>
+          <pre><code>
+defmodule Processes do
+  def counter(next_pid) do
+    receive do
+      n ->
+        send(next_pid, n+1)
+    end
+  end
+
+  def create_processes(n) do
+    last = Enum.reduce(1..n, self, fn(_, send_to) ->
+      spawn(Processes, :counter, [send_to])
+    end)
+
+    send last, 0
+
+    receive do
+      final_answer when is_integer(final_answer) ->
+        "Result is #{inspect(final_answer)}"
+    end
+  end
+
+  def run(n) do
+    IO.puts inspect :timer.tc(Processes, :create_processes, [n])
+  end
+end
+          </code></pre>
+          <small>This code is runnable in the <code>/code</code> directory.</small>
+        </section>
+
+        <section>
+          <h2>Processes Example</h2>
+          <pre><code>
+$ iex processes.exs
+iex> Processes.run(200_000)
+{1456993, "Result is 200000"}
+:ok
+iex> Processes.run(300_000)
+** (SystemLimitError) a system limit has been reached
+
+13:07:26.075 [error] Too many processes
+          </code></pre>
+          <small>First element of tuple is elapsed time in microseconds. So 1.45 seconds.</small>
+        </section>
+
+        <section>
+          <h2>Processes Example</h2>
+          <p>Let's go for 1,000,000! Tell Erlang to prepare itself...</p>
+          <pre><code>
+$ elixir --erl "+P 1000000"  -r processes.exs -e "Processes.run(1_000_000)"
+          </code></pre>
+        </section>
+
+        <section>
+          <h2>Processes Example</h2>
+          <p>A million processes...in under 8 seconds...on my MacBook.</p>
+          <pre><code>
+$ elixir --erl "+P 1000000"  -r processes.exs -e "Processes.run(1_000_000)"
+{7857020, "Result is 1000000"}
+          </code></pre>
+
         </section>
 
         <section>
           <h2>"Micro Services"</h2>
-          <p>TODO</p>
-        </section>
-
-        <section>
-          <h2>Applications Example</h2>
-          <p>TODO: Fire up :observer and kill a tree</p>
+          <p>Elixir has "Applications"</p>
+          <p>Each application runs in its own process and is supervised.</p>
+          <p>You get benefits of a monolithic app and of microservices.</p>
         </section>
 
         <section>
           <h2>Distribution Over Nodes</h2>
-          <p>TODO</p>
-        </section>
-
-        <section>
-          <h1>The Big Finale</h1>
+          <p>In Elixir, you can distribute your code by connecting a new "node".</p>
+          <p>This can be another shell window, computer, or a server in Hong Kong.</p>
+          <p>Node communication is built in.</p>
         </section>
 
         <section>
