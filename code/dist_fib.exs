@@ -11,9 +11,8 @@ defmodule Fibonacci do
     end
   end
 
-  def spawn_fib(n) do
-    id = Node.spawn_link(node, Fibonacci, :fib, [])
-    # id = spawn_link(Fibonacci, :dist_fib, [])
+  def spawn_fib(node, n) do
+    id = Node.spawn_link(node, Fibonacci, :dist_fib, [])
 
     send id, {self, n}
 
